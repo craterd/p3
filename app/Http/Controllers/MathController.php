@@ -8,11 +8,11 @@ class MathController extends Controller
 {
     public function display()
     {
-        return 'Display the calculator...';
+        return view('Calculator.display');
     }
 
     public function process()
     {
-        return 'Calculate results...';
+        return view('Calculator.display');
     }
 }
