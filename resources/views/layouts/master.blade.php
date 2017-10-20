@@ -2,31 +2,30 @@
 <html>
 <head>
 	<title>
-        @yield('title', 'Calculator')
+        @yield('title', 'A Simple Calculator')
     </title>
-
-	<meta charset='utf-8'>
 
     @stack('head')
 
 </head>
-<body>
 
+<body>
 	<header>
-		A Simple Calculator
+    	<h1>A Basic Calculator</h1>
+    	<h5>Specify your inputs and operation</h5>
+    	<br><br>
 	</header>
 
 	<section>
 		@yield('content')
 	</section>
 
+    @stack('body')
+
 	<footer>
-		&copy; {{ date('Y') }}
+		&copy; Harvard Extension School {{ date('Y') }}
 	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-    @stack('body')
-
 </body>
 </html>

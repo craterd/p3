@@ -2,19 +2,69 @@
 
 
 @section('title')
-    A Simple Calculator
+    DWA Fall 2017 Project 3, by Dave Crater
 @endsection
 
 
 @push('head')
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css' rel='stylesheet'>
     <link href="styles.css" type='text/css' rel='stylesheet'>
 @endpush
 
 
 @section('content')
-    <h1>Show calculator</h1>
 @endsection
 
 
 @push('body')
+    <form method='GET' action='index.php'>
+
+        <!-- display first input box, retaining any valid input value, sanitized of course -->
+        <label>Input 1:
+            <input type='text' name='input1' <?php if (isset($_GET['input1']) && is_numeric($_GET['input1'])) echo "value=" . sanitize($_GET['input1'])?>>
+        </label>
+
+        <!-- display operation dropdown -->
+        <select name='operation' id='operation'>
+            <option value='choose'>choose</option>
+            <option value='+'>+</option>
+            <option value='-'>-</option>
+            <option value='*'>*</option>
+            <option value='/'>/</option>
+         </select>
+
+        <!-- display second input box, retaining any valid input value, sanitized of course -->
+        <label>Input 2:
+            <input type='text' name='input2' <?php if (isset($_GET['input2']) && is_numeric($_GET['input2'])) echo "value=" . sanitize($_GET['input2'])?>>
+        </label>
+        <br><br>
+
+        <!-- display decimals checkbox -->
+        <fieldset class='checkboxes'>
+            <label><input type='checkbox' name='decimals' value='on'> Show decimals in answer?</label>
+        </fieldset>
+        <br><br>
+
+        <!-- display submit button with value of 'Calculate' -->
+        <input type='submit' value='Calculate'>
+        <br><br>
+
+        <!-- display either alert/error or the result -->
+        <?php if (!isset($results)) : ?>
+            <?php if (count($errors) > 0) : ?>
+               <div class='alert alert-danger'>
+                        <?php foreach ($errors as $error) :?>
+                            <?=$error?><br>
+                        <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        <?php else : ?>
+            <div class='alert alert-info'>
+                Answer is <?=$results?>.
+            </div>
+        <?php endif; ?>
+    </form>
 @endpush
