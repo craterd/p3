@@ -20,7 +20,7 @@
 
         <!-- display first input box, retaining any valid input value, sanitized of course -->
         <label>Input 1:
-            <input type='text' name='input1' value='{{ $input1 || ''}}'>
+            <input type='text' name='input1' value='{{ isset($input1) && $input1 }}'>
         </label>
 
         <!-- display operation dropdown -->
@@ -33,7 +33,7 @@
 
         <!-- display second input box, retaining any valid input value, sanitized of course -->
         <label>Input 2:
-            <input type='text' name='input2' value='{{ $input2 || '' }}'>
+            <input type='text' name='input2' value='{{ isset($input2) && $input2 }}'>
         </label>
         <br><br>
 
