@@ -16,20 +16,15 @@
 
 
 @section('content')
-@endsection
-
-
-@push('body')
-    <form method='GET' action='index.php'>
+    <form method='GET' action='/calculate'>
 
         <!-- display first input box, retaining any valid input value, sanitized of course -->
         <label>Input 1:
-            <input type='text' name='input1' <?php if (isset($_GET['input1']) && is_numeric($_GET['input1'])) echo "value=" . sanitize($_GET['input1'])?>>
+            <input type='text' name='input1' value='{{ $input1 || ''}}'>
         </label>
 
         <!-- display operation dropdown -->
         <select name='operation' id='operation'>
-            <option value='choose'>choose</option>
             <option value='+'>+</option>
             <option value='-'>-</option>
             <option value='*'>*</option>
@@ -38,13 +33,13 @@
 
         <!-- display second input box, retaining any valid input value, sanitized of course -->
         <label>Input 2:
-            <input type='text' name='input2' <?php if (isset($_GET['input2']) && is_numeric($_GET['input2'])) echo "value=" . sanitize($_GET['input2'])?>>
+            <input type='text' name='input2' value='{{ $input2 || '' }}'>
         </label>
         <br><br>
 
         <!-- display decimals checkbox -->
         <fieldset class='checkboxes'>
-            <label><input type='checkbox' name='decimals' value='on'> Show decimals in answer?</label>
+            <label><input type='checkbox' name='decimals' value='on' {{ isset($decimals) ? 'CHECKED' : '' }}> Show decimals in answer?</label>
         </fieldset>
         <br><br>
 
@@ -53,18 +48,23 @@
         <br><br>
 
         <!-- display either alert/error or the result -->
-        <?php if (!isset($results)) : ?>
-            <?php if (count($errors) > 0) : ?>
-               <div class='alert alert-danger'>
-                        <?php foreach ($errors as $error) :?>
-                            <?=$error?><br>
-                        <?php endforeach; ?>
+        @if ( !isset($results) )
+            @if (isset($errors) && count($errors) > 0)
+                <div class='alert alert-danger'>
+                    @foreach ($errors as $error)
+                        {{ $error }}<br>
+                    @endforeach
                 </div>
-            <?php endif; ?>
-        <?php else : ?>
+            @endif
+        @else
             <div class='alert alert-info'>
-                Answer is <?=$results?>.
+                Answer is {{ $results }}.
             </div>
-        <?php endif; ?>
+        @endif
     </form>
+@endsection
+
+
+@push('body')
+
 @endpush
